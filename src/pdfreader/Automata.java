@@ -10,9 +10,14 @@ import java.util.*;
 
 public class Automata {
     private ArrayList<int[]> automata;
-    public final int ALPHABET_SIZE = 90;
+    public final int ALPHABET_SIZE = 100;
 
     private int finishState;
+    public Automata()
+    {
+    	initAutomata();
+    	
+    }
     public void initAutomata()
     {
         automata = new ArrayList<int[]>();
@@ -32,6 +37,7 @@ public class Automata {
         //end of word is representated by 0
         int stateIndex = 0;
         int wordIndex = 0;
+        int[] temp;
         while(word[wordIndex] != 0)
         {
             if (automata.get(stateIndex)[word[wordIndex]] != -1)
@@ -46,10 +52,13 @@ public class Automata {
                 //there is no route here, so lets make it up
                 //create a new empty state
                 int[] A = new int[ALPHABET_SIZE];
+                Arrays.fill(A, -1);
                 //add it before the last state
                 automata.add(A);
-                int newState = automata.size();
-                automata.get(stateIndex)[word[wordIndex]] = newState;
+                int newState = automata.size() - 1;
+                temp = automata.get(stateIndex);
+                temp[word[wordIndex]] = newState;
+                automata.set(stateIndex, temp);
 
                 //move on
                 stateIndex = newState;
@@ -57,8 +66,13 @@ public class Automata {
             wordIndex++;
         }
         //end-of-word symbol is linked to the finish state 
-        automata.get(stateIndex)[word[wordIndex]] = finishState;
-
+        temp = automata.get(stateIndex);
+        temp[word[wordIndex]] = finishState;
+        automata.set(stateIndex, temp);
+        //automata.get(stateIndex)[word[wordIndex]] = finishState;
+        
+        int d = 1;
+        d++;
     }
 
     public boolean recognizeWord(int[] word)
@@ -68,13 +82,13 @@ public class Automata {
         int stateIndex = 0;
         while (word[wordIndex] != 0) //go till the end of the word
         {
-            if (automata.get(stateIndex)[wordIndex] == -1) //can't find the transition
+            if (automata.get(stateIndex)[word[wordIndex]] == -1) //can't find the transition
             {
                 return false;
             }
             else
             {
-                stateIndex = automata.get(stateIndex)[wordIndex];
+                stateIndex = automata.get(stateIndex)[word[wordIndex]];
                 wordIndex++;
             }
         }
@@ -91,7 +105,7 @@ public class Automata {
     public void saveAutomata()
     {
         try {
-            PrintWriter writer = new PrintWriter("dictionary.txt", "UTF-8");
+            PrintWriter writer = new PrintWriter("resources/dictionary.txt", "UTF-8");
             String line = new String("");
             for(int i = 0; i < automata.size(); i++)
             {
@@ -113,7 +127,7 @@ public class Automata {
     public boolean loadAutomata()
     {
         try {
-            BufferedReader br = new BufferedReader(new FileReader("dictionary.txt"));
+            BufferedReader br = new BufferedReader(new FileReader("resources/dictionary.txt"));
             String line;
             automata.clear();
             int stateIndex = 0;

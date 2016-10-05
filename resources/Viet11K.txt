@@ -760,7 +760,7 @@ bỉ mặt
 bỉ vận
 bí
 bí ẩn
-bí mật.
+bí mật
 bí quyết
 bí thư
 bị
@@ -1654,7 +1654,7 @@ chân
 chân dung
 chân lý
 chân tài
-chân thành.
+chân thành
 chân tình
 chân trời
 chân tướng
@@ -8216,7 +8216,7 @@ sờn lòng
 sởn
 sởn mởn
 sớt
-stand.
+stand
 stick
 su hào
 su su
