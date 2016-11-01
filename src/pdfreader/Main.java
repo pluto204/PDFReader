@@ -12,6 +12,11 @@ public class Main {
 	public static void main(String[] args) {
 		Automata au = new Automata();
 		Encoder ec = new Encoder();
+		String test = new String("abc.");
+		test = test.replaceAll("[().,!?]", "");
+		
+		System.out.println(test);
+		/*
 		au.loadAutomata();
 		try{
 			PDDocument document = null;
@@ -36,6 +41,7 @@ public class Main {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		*/
 		//***********************Test xay dung automata************************
 		/*
 		BufferedReader br = null;
