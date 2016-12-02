@@ -10,11 +10,12 @@ import java.util.*;
 
 public class Automata {
     private ArrayList<int[]> automata;
-    public final int ALPHABET_SIZE = 100;
-
+    public final int ALPHABET_SIZE = 75;
+    public int size;
     private int finishState;
     public Automata()
     {
+    	size = 0;
     	initAutomata();
     	
     }
@@ -35,6 +36,7 @@ public class Automata {
     public void addWord(int[] word)
     {
         //end of word is representated by 0
+    	boolean check = false;
         int stateIndex = 0;
         int wordIndex = 0;
         int[] temp;
@@ -49,6 +51,7 @@ public class Automata {
             }
             else
             {
+            	check = true;
                 //there is no route here, so lets make it up
                 //create a new empty state
                 int[] A = new int[ALPHABET_SIZE];
@@ -70,7 +73,7 @@ public class Automata {
         temp[word[wordIndex]] = finishState;
         automata.set(stateIndex, temp);
         //automata.get(stateIndex)[word[wordIndex]] = finishState;
-        
+        if (check) size++;
         int d = 1;
         d++;
     }
@@ -105,7 +108,7 @@ public class Automata {
     public void saveAutomata()
     {
         try {
-            PrintWriter writer = new PrintWriter("resources/dictionary.txt", "UTF-8");
+            PrintWriter writer = new PrintWriter("resources/vowelComb.txt", "UTF-8");
             String line = new String("");
             for(int i = 0; i < automata.size(); i++)
             {
@@ -127,7 +130,7 @@ public class Automata {
     public boolean loadAutomata()
     {
         try {
-            BufferedReader br = new BufferedReader(new FileReader("resources/dictionary.txt"));
+            BufferedReader br = new BufferedReader(new FileReader("resources/vowelComb.txt"));
             String line;
             automata.clear();
             int stateIndex = 0;
@@ -151,5 +154,6 @@ public class Automata {
             return false;
         }
     }
+    
 
 }
