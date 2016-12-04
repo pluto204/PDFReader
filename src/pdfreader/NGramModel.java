@@ -167,16 +167,17 @@ public class NGramModel {
 				//no switch
 				index++;
 			}
-			if (na != 1 || pa > 2 || index > 2) return false;
+			if (na > 1 || pa > 2 || index > 2) return false;
 			alpha[index] = c;
 			 
 			i++;
 		}
-		return true;
+		if (na != 1) return false;
+		else return true;
 	}
 	public ArrayList<String> checkSentence(String sen, Automata au) {
 		ArrayList<String> wrong = new ArrayList<String>();
-		StringTokenizer st = new StringTokenizer(sen, ".,!?:\n\"");
+		StringTokenizer st = new StringTokenizer(sen, ".,!?:\n\" ");
 		while (st.hasMoreTokens()) {
 			String temp = st.nextToken();
 			boolean check = tree.search(temp);
