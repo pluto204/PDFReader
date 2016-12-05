@@ -173,7 +173,10 @@ public class NGramModel {
 			i++;
 		}
 		if (na != 1) return false;
-		else return true;
+		else if (vSide) {
+			return checkVowelComb(alpha, index+1, au);
+		}
+		else return checkConsonantComb(alpha, index+1);
 	}
 	public ArrayList<String> checkSentence(String sen, Automata au) {
 		ArrayList<String> wrong = new ArrayList<String>();
